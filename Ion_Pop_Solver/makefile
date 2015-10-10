@@ -1,0 +1,24 @@
+#set compiler and some options
+CXX=g++
+CXXFLAGS=-Wall -g -I /usr/include/malloc -O3
+#set source and object files
+SOURCES=$(wildcard src/*cpp)
+SOURCES_RAD=$(wildcard Radiation_Model/src/*.cpp)
+OBJECTS=$(subst .cpp,.o,$(SOURCES))
+OBJECTS_RAD=$(subst .cpp,.o,$(SOURCES_RAD))
+
+all: bin/Ion_Pop_Solver
+
+bin/Ion_Pop_Solver: make_src make_rad_src
+	$(CXX) $(OBJECTS) $(OBJECTS_RAD) -o $@
+	
+make_src:
+	cd src; make
+	
+make_rad_src:
+	cd Radiation_Model/src; make
+
+clean:
+	cd src; make clean
+	cd Radiation_Model/src; make clean
+	$(RM) bin/Ion_Pop_Solver
