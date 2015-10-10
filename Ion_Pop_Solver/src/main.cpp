@@ -13,9 +13,9 @@
 #include <malloc.h>
 #include <math.h>
 
-#include "../Radiation_Model/source/ionfrac.h"
-#include "../source/fitpoly.h"
-#include "../source/file.h"
+#include "../Radiation_Model/src/ionfrac.h"
+#include "../src/fitpoly.h"
+#include "../src/file.h"
 
 #define STEPS		1		// Minimum number of integration steps to take between time intervals of sample
 

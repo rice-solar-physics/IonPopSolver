@@ -15,8 +15,8 @@
 #include <math.h>
 
 #include "element.h"
-#include "../../source/file.h"
-#include "../../source/fitpoly.h"
+#include "../../src/file.h"
+#include "../../src/fitpoly.h"
 
 
 CElement::CElement( int iZ, char *szRangesFilename, char *szRatesFilename, char *szIonFracFilename )

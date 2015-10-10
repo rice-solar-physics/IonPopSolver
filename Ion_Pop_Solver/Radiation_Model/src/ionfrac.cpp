@@ -14,8 +14,8 @@
 #include <string.h>
 
 #include "ionfrac.h"
-#include "../../source/file.h"
-#include "../../source/fitpoly.h"
+#include "../../src/file.h"
+#include "../../src/fitpoly.h"
 
 
 CIonFrac::CIonFrac( CIonFrac *pIonFrac, char *szFilename, PRADIATION pRadiationObj, double flog_10T )
