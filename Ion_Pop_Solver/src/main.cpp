@@ -10,9 +10,13 @@
 // ****
 
 #include <stdio.h>
+#include <iostream>
+#include <string>
 #include <stdlib.h>
 #include <malloc.h>
 #include <math.h>
+
+#include "boost/program_options.hpp"
 
 #include "../Radiation_Model/src/ionfrac.h"
 #include "../src/fitpoly.h"
@@ -20,7 +24,7 @@
 
 #define STEPS		1		// Minimum number of integration steps to take between time intervals of sample
 
-int main(void)
+int main(int argc, char **argv)
 {
 double fGet_Teff( PRADIATION pRadiation, double *pNonEquil_ni, int iZ );
 
@@ -33,10 +37,11 @@ double *pft, *pfT, *pfn;
 double x[3], y[3], pstep;
 double **ppni, **ppdnibydt;
 double *pNonEquil_ni;
-char szFilename[256];
+std::string szFilename;
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
 
+/*
 printf( "\nData file containing T(t) and n(t): " );
 scanf( "%s", szFilename );
 printf( "\n" );
@@ -48,10 +53,35 @@ scanf( "%i", &iSpec_from );
 printf( "                                  (to): " );
 scanf( "%i", &iSpec_to );
 printf( "\n\n" );
+*/
+
+//Read command line options using Boost command line parsing library
+namespace po = boost::program_options;
+po::options_description description("A code to solve the ionisation / recombination equations for any given T(t) and n(t)\n\n(c) Dr. Stephen J. Bradshaw\n\nDate last modified: 26/03/2010\n\nUsage");
+description.add_options()
+	("help,h","The help message")
+	("element,Z",po::value<int>(&iZ),"Atomic number of element")
+	("spec_from,sf",po::value<int>(&iSpec_from),"Spectroscopic number of element (from)")
+	("spec_to,st",po::value<int>(&iSpec_to),"Spectroscopic number of element (to)")
+	("filename,f",po::value<std::string>(&szFilename),"Data file containing T(t) and n(t)");
+po::variables_map vm;
+po::store(po::command_line_parser(argc,argv).options(description).run(), vm);
+if(vm.count("help"))
+{
+	std::cout << description;
+	return 0;
+}
+if(!vm.count("elemnt") || !vm.count("spec_from") || !vm.count("spec_to") || !vm.count("filename"))
+{
+	std::cout << "Missing argument.\n" << std::endl;
+	std::cout << description;
+	return 1; 
+}
+
 
 // Read the values from the date file containing T(t) and n(t)
 
-pFile = fopen( szFilename, "r" );
+pFile = fopen( szFilename.c_str(), "r" );
 fscanf( pFile, "%i", &iNumSteps );
 
 // Allocate sufficient memory for t, T(t) and n(t)

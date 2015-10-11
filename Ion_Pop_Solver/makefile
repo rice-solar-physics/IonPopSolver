@@ -1,6 +1,8 @@
 #set compiler and some options
 CXX=g++
-CXXFLAGS=-Wall -g -I /usr/include/malloc -O3
+CXXFLAGS=-Wall -g -O3
+IFLAGS=-I /usr/include/malloc
+LFLAGS=-L /opt/local/lib -lboost_program_options-mt
 #set source and object files
 SOURCES=$(wildcard src/*cpp)
 SOURCES_RAD=$(wildcard Radiation_Model/src/*.cpp)
@@ -10,7 +12,7 @@ OBJECTS_RAD=$(subst .cpp,.o,$(SOURCES_RAD))
 all: bin/Ion_Pop_Solver
 
 bin/Ion_Pop_Solver: make_src make_rad_src
-	$(CXX) $(OBJECTS) $(OBJECTS_RAD) -o $@
+	$(CXX) $(OBJECTS) $(OBJECTS_RAD) -o $@ $(LFLAGS)
 	
 make_src:
 	cd src; make
