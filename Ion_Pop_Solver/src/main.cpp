@@ -41,20 +41,6 @@ char szFilename[256];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
 
-/*
-printf( "\nData file containing T(t) and n(t): " );
-scanf( "%s", szFilename );
-printf( "\n" );
-
-printf( "\nAtomic number of element: " );
-scanf( "%i", &iZ );
-printf( "Spectroscopic number of element (from): " );
-scanf( "%i", &iSpec_from );
-printf( "                                  (to): " );
-scanf( "%i", &iSpec_to );
-printf( "\n\n" );
-*/
-
 //Read command line options using Boost command line parsing library
 namespace po = boost::program_options;
 po::options_description description("A code to solve the ionisation / recombination equations for any given T(t) and n(t)\n\n(c) Dr. Stephen J. Bradshaw\n\nDate last modified: 26/03/2010\n\nUsage");
@@ -76,7 +62,6 @@ std::strcpy(szFilename,vm["filename"].as<std::string>().c_str());
 
 
 // Read the values from the date file containing T(t) and n(t)
-
 pFile = fopen( szFilename, "r" );
 fscanf( pFile, "%i", &iNumSteps );
 

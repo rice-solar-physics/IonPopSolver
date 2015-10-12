@@ -1,8 +1,12 @@
 #set compiler and some options
+UNAME=$(shell uname)
 CXX=g++
 CXXFLAGS=-Wall -g -O3
-IFLAGS=-I /usr/include/malloc
+ifeq ($(UNAME),Darwin)
 LFLAGS=-L /opt/local/lib -lboost_program_options-mt
+else
+LFLAGS=-L /usr/lib/x86_64-linux-gnu -lboost_program_options
+endif
 #set source and object files
 SOURCES=$(wildcard src/*cpp)
 SOURCES_RAD=$(wildcard Radiation_Model/src/*.cpp)
