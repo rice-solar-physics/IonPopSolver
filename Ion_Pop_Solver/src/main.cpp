@@ -37,7 +37,7 @@ double *pft, *pfT, *pfn;
 double x[3], y[3], pstep;
 double **ppni, **ppdnibydt;
 double *pNonEquil_ni;
-std::string szFilename;
+char szFilename[256];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
 
@@ -60,10 +60,10 @@ namespace po = boost::program_options;
 po::options_description description("A code to solve the ionisation / recombination equations for any given T(t) and n(t)\n\n(c) Dr. Stephen J. Bradshaw\n\nDate last modified: 26/03/2010\n\nUsage");
 description.add_options()
 	("help,h","The help message")
-	("element,Z",po::value<int>(&iZ),"Atomic number of element")
-	("spec_from,sf",po::value<int>(&iSpec_from),"Spectroscopic number of element (from)")
-	("spec_to,st",po::value<int>(&iSpec_to),"Spectroscopic number of element (to)")
-	("filename,f",po::value<std::string>(&szFilename),"Data file containing T(t) and n(t)");
+	("element,Z",po::value<int>(&iZ)->required(),"Atomic number of element")
+	("spec_from,f",po::value<int>(&iSpec_from)->required(),"Spectroscopic number of element (from)")
+	("spec_to,t",po::value<int>(&iSpec_to)->required(),"Spectroscopic number of element (to)")
+	("filename,F",po::value<std::string>()->required(),"Data file containing T(t) and n(t)");
 po::variables_map vm;
 po::store(po::command_line_parser(argc,argv).options(description).run(), vm);
 if(vm.count("help"))
@@ -71,17 +71,13 @@ if(vm.count("help"))
 	std::cout << description;
 	return 0;
 }
-if(!vm.count("elemnt") || !vm.count("spec_from") || !vm.count("spec_to") || !vm.count("filename"))
-{
-	std::cout << "Missing argument.\n" << std::endl;
-	std::cout << description;
-	return 1; 
-}
+po::notify(vm);
+std::strcpy(szFilename,vm["filename"].as<std::string>().c_str());
 
 
 // Read the values from the date file containing T(t) and n(t)
 
-pFile = fopen( szFilename.c_str(), "r" );
+pFile = fopen( szFilename, "r" );
 fscanf( pFile, "%i", &iNumSteps );
 
 // Allocate sufficient memory for t, T(t) and n(t)
