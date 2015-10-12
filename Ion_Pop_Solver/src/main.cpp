@@ -37,7 +37,7 @@ double *pft, *pfT, *pfn;
 double x[3], y[3], pstep;
 double **ppni, **ppdnibydt;
 double *pNonEquil_ni;
-char szFilename[256];
+char szFilename[256],szFilename_out[256];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
 
@@ -49,7 +49,8 @@ description.add_options()
 	("element,Z",po::value<int>(&iZ)->required(),"Atomic number of element")
 	("spec_from,f",po::value<int>(&iSpec_from)->required(),"Spectroscopic number of element (from)")
 	("spec_to,t",po::value<int>(&iSpec_to)->required(),"Spectroscopic number of element (to)")
-	("filename,F",po::value<std::string>()->required(),"Data file containing T(t) and n(t)");
+	("input_file,I",po::value<std::string>()->required(),"Data file containing T(t) and n(t)")
+	("output_file,O",po::value<std::string>(),"File to print results to.");
 po::variables_map vm;
 po::store(po::command_line_parser(argc,argv).options(description).run(), vm);
 if(vm.count("help"))
@@ -58,8 +59,7 @@ if(vm.count("help"))
 	return 0;
 }
 po::notify(vm);
-std::strcpy(szFilename,vm["filename"].as<std::string>().c_str());
-
+std::strcpy(szFilename,vm["input_file"].as<std::string>().c_str());
 
 // Read the values from the date file containing T(t) and n(t)
 pFile = fopen( szFilename, "r" );
@@ -89,8 +89,15 @@ ppdnibydt = pIonFrac->ppGetdnibydt();
 pNonEquil_ni = pIonFrac->pGetIonFrac( iZ );
 
 // Open the data file for output
-sprintf( szFilename, "Z%i.txt", iZ );
-pFile = fopen( szFilename, "w" );
+if(!vm.count("output_file"))
+{
+	sprintf( szFilename_out, "Z%i.txt", iZ );	
+}
+else
+{
+	std::strcpy(szFilename_out,vm["output_file"].as<std::string>().c_str());
+}
+pFile = fopen( szFilename_out, "w" );
 
 // Progress bar
 pstep = 10.0;
