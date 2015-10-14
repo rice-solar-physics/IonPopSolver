@@ -51,7 +51,7 @@ class EM_Binner(object):
         
         try:
             self.logT_EM
-        except NameError:
+        except AttributeError:
             print("Temperature bins not yet created. Building now with default values.")
             self.logT_bins()
             
