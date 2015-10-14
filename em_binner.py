@@ -50,14 +50,14 @@ class EM_Binner(object):
         """Create EM distribution from temperature arrays. Build for both T and T_eff"""
         
         try:
-            self.logT_bins
+            self.logT_EM
         except NameError:
             print("Temperature bins not yet created. Building now with default values.")
             self.logT_bins()
             
         #Multidimensional EM object
-        em_mat = np.zeros((len(self.time),len(self.logT_bins)))
-        em_eff_mat = np.zeros((len(self.time),len(self.logT_bins)))
+        em_mat = np.zeros((len(self.time),len(self.logT_EM)))
+        em_eff_mat = np.zeros((len(self.time),len(self.logT_EM)))
             
         #Loop over time
         for i in range(len(self.time)):
