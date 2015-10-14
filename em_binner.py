@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 class EM_Binner(object):
     
-    def __init__(self,filename,loop_length,read_abundances=False):
+    def __init__(self,filename,loop_length,read_abundances=False,**kwargs):
         #Read File
         data = np.loadtxt(filename)
         #set loop length as member variable
@@ -41,6 +41,7 @@ class EM_Binner(object):
     def coronal_limits(self,T):
         """Find limits of corona in log temperature space."""
         
+        #Use EBTEL method for calculating coronal temperature bounds
         logT_C_a = np.log10(2.0/3.0*T)
         logT_C_b = np.log10(10.0/9.0*T)
         return logT_C_a,logT_C_b
@@ -48,10 +49,31 @@ class EM_Binner(object):
     def build_em_dist(self):
         """Create EM distribution from temperature arrays. Build for both T and T_eff"""
         
-        if not logT_bins:
+        try:
+            self.logT_bins
+        except NameError:
             print("Temperature bins not yet created. Building now with default values.")
             self.logT_bins()
             
+        #Multidimensional EM object
+        em_mat = np.zeros((len(self.time),len(self.logT_bins)))
+        em_eff_mat = np.zeros((len(self.time),len(self.logT_bins)))
+            
         #Loop over time
         for i in range(len(self.time)):
+            #calculate coronal temperature bounds at time i
+            logTa,logTb = self.coronal_limits(self.temp[i])
+            logTa_eff,logTb_eff = self.coronal_limits(self.temp_eff[i])
+            #find coronal indices in logT
+            iC = np.where((self.logT_EM >= logTa) & (self.logT_EM <= logTb))
+            iC_eff = np.where((self.logT_EM >= logTa_eff) & (self.logT_EM <= logTb_eff))
+            #set EM at time i to EM in entries corresponding to the corona
+            em_mat[i,iC[0]] = self.emission_measure_calc(self.density[i])
+            em_eff_mat[i,iC_eff[0]] = self.emission_measure_calc(self.density[i])
+            
+        #Compute weighted averages over all time and take log
+        self.em = np.log10(np.average(em_mat,axis=0,weights=np.gradient(self.time)))
+        self.em_eff = np.log10(np.average(em_eff_mat,axis=0,weights=np.gradient(self.time)))
+            
+            
             
