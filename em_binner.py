@@ -13,16 +13,15 @@ import matplotlib.pyplot as plt
 
 class EM_Binner(object):
     
-    def __init__(self,filename,loop_length,read_abundances=False,**kwargs):
+    def __init__(self,time,temp,density,loop_length,read_abundances=False,**kwargs):
         #Read File
         data = np.loadtxt(filename)
         #set loop length as member variable
         self.loop_length = loop_length
         #Slice array and set member arrays
-        self.time = data[:,0]
-        self.temp = data[:,1]
-        self.temp_eff = data[:,2]
-        self.density = data[:,3]
+        self.time = time
+        self.temp = temp
+        self.density = density
         #Get abundances
         if(read_abundances):
             print("TODO: import abundances")
@@ -33,6 +32,8 @@ class EM_Binner(object):
         
         self.delta_logT = delta_logT
         self.logT_EM = np.arange(logT_a,logT_b,delta_logT)
+        #Add right edge for histogram bins
+        self.logT_EM_histo_bins = np.append(self.logT_EM,self.logT_EM[-1]+self.delta_logT)
         
     def emission_measure_calc(self,n):
         """Calculate emission measure distribution"""
@@ -56,25 +57,22 @@ class EM_Binner(object):
             print("Temperature bins not yet created. Building now with default values.")
             self.logT_bins()
             
-        #Multidimensional EM object
-        em_mat = np.zeros((len(self.time),len(self.logT_EM)))
-        em_eff_mat = np.zeros((len(self.time),len(self.logT_EM)))
+        #Flattened EM and temp lists for easily building histograms
+        self.em_flat_ = []
+        self.logT_em_flat = []
+        
+        #Calculate time weights
+        w_tau = np.gradient(self.time)/np.sum(np.gradient(self.time))
             
         #Loop over time
         for i in range(len(self.time)):
             #calculate coronal temperature bounds at time i
             logTa,logTb = self.coronal_limits(self.temp[i])
-            logTa_eff,logTb_eff = self.coronal_limits(self.temp_eff[i])
             #find coronal indices in logT
             iC = np.where((self.logT_EM >= logTa) & (self.logT_EM <= logTb))
-            iC_eff = np.where((self.logT_EM >= logTa_eff) & (self.logT_EM <= logTb_eff))
-            #set EM at time i to EM in entries corresponding to the corona
-            em_mat[i,iC[0]] = self.emission_measure_calc(self.density[i])
-            em_eff_mat[i,iC_eff[0]] = self.emission_measure_calc(self.density[i])
-            
-        #Compute weighted averages over all time and take log
-        self.em = np.log10(np.average(em_mat,axis=0,weights=np.gradient(self.time)))
-        self.em_eff = np.log10(np.average(em_eff_mat,axis=0,weights=np.gradient(self.time)))
-            
+            #append coronal temperatures to temperature list
+            self.logT_em_flat.extend(self.logT_EM[iC])
+            #append emission measure weighted by timestep to emission measure list
+            self.em_flat.extend(len(iC)*[w_tau[i]*self.emission_measure_calc(self.density[i])])
             
             
