@@ -36,7 +36,7 @@ class EM_Binner(object):
     def emission_measure_calc(self,n):
         """Calculate emission measure distribution"""
         
-        return self.loop_length*n**2/self.delta_logT
+        return self.loop_length*n**2
         
     def coronal_limits(self,T):
         """Find limits of corona in log temperature space."""
