@@ -31,12 +31,13 @@ class EM_Binner(object):
     def logT_bins(self,logT_a=4.0,logT_b=8.5,delta_logT=0.01):
         """Build temperature bins in log_10 for creating EM distribution"""
         
+        self.delta_logT = delta_logT
         self.logT_EM = np.arange(logT_a,logT_b,delta_logT)
         
     def emission_measure_calc(self,n):
         """Calculate emission measure distribution"""
         
-        return self.loop_length*n**2
+        return self.loop_length*n**2/self.delta_logT
         
     def coronal_limits(self,T):
         """Find limits of corona in log temperature space."""
