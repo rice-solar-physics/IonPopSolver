@@ -68,9 +68,10 @@ class EM_Binner(object):
             logTa,logTb = self.coronal_limits(self.temp[i])
             #find coronal indices in logT
             iC = np.where((self.logT_EM >= logTa) & (self.logT_EM <= logTb))
-            #append coronal temperatures to temperature list
-            self.logT_em_flat.extend(self.logT_EM[iC])
-            #append emission measure weighted by timestep to emission measure list
-            self.em_flat.extend(len(iC)*[w_tau[i]*self.emission_measure_calc(self.density[i])])
+            if len(iC) > 0:
+                #append coronal temperatures to temperature list
+                self.logT_em_flat.extend(self.logT_EM[iC[0]])
+                #append emission measure weighted by timestep to emission measure list
+                self.em_flat.extend(len(iC[0])*[w_tau[i]*self.emission_measure_calc(self.density[i])])
             
             
