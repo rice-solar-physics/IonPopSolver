@@ -14,8 +14,6 @@ import matplotlib.pyplot as plt
 class EM_Binner(object):
     
     def __init__(self,time,temp,density,loop_length,read_abundances=False,**kwargs):
-        #Read File
-        data = np.loadtxt(filename)
         #set loop length as member variable
         self.loop_length = loop_length
         #Slice array and set member arrays
