@@ -56,7 +56,7 @@ class EM_Binner(object):
             self.logT_bins()
             
         #Flattened EM and temp lists for easily building histograms
-        self.em_flat_ = []
+        self.em_flat = []
         self.logT_em_flat = []
         
         #Calculate time weights
