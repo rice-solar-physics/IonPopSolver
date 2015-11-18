@@ -42,7 +42,8 @@ class EM_Binner(object):
         """Find limits of corona in log temperature space."""
         
         #Use EBTEL method for calculating coronal temperature bounds
-        logT_C_a = np.log10(2.0/3.0*T)
+        #logT_C_a = np.log10(2.0/3.0*T)
+        logT_C_a = np.log10(8.0/9.0*T)
         logT_C_b = np.log10(10.0/9.0*T)
         return logT_C_a,logT_C_b
         
