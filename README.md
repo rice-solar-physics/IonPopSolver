@@ -4,3 +4,10 @@ Here is the code for the ion population solver (in the attached .zip file). The 
 Upon running the code you are also asked to supply the atomic number of the element to solve for and the ion range. These inputs can be 26 (iron) and 1 to 27 (neutral to fully ionized iron).
 
 The output file format is time, Te, T_eff, number density, ionization states...
+
+##TODO:
+ + Move RadiationModel to submodule that is shared with HYDRAD; ensures that we are 
+treating radiation the same way in both codes
+ + Move atomic database out of radiation model. Use apolloDB
+ + Can it handle more than one element?
+ + XML config files
