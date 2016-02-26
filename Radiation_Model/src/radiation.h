@@ -29,7 +29,7 @@ class CRadiation {
 	int *pZ;
 	
 	// Function to initialise the radiation object with a set of elements
-	void Initialise( char *szFilename );
+	void Initialise( char *szFilename, double safety_atomic, double cutoff_ion_fraction );
 
 	// Function to free all allocated memory
 	void FreeAll( void );
@@ -37,7 +37,7 @@ class CRadiation {
 	public:
 
 	// Constructor
-	CRadiation( char *szFilename );
+	CRadiation( char *szFilename, double safety_atomic, double cutoff_ion_fraction );
 	
 	// Destructor
 	~CRadiation( void );

@@ -16,9 +16,9 @@
 #include "radiation.h"
 
 
-CRadiation::CRadiation( char *szFilename )
+CRadiation::CRadiation( char *szFilename, double safety_atomic, double cutoff_ion_fraction )
 {
-Initialise( szFilename );
+Initialise( szFilename, safety_atomic, cutoff_ion_fraction );
 }
 
 CRadiation::~CRadiation( void )
@@ -26,7 +26,7 @@ CRadiation::~CRadiation( void )
 FreeAll();
 }
 
-void CRadiation::Initialise( char *szFilename )
+void CRadiation::Initialise( char *szFilename, double safety_atomic, double cutoff_ion_fraction )
 {
 FILE *pFile;
 char buffer1[16];
@@ -61,7 +61,7 @@ for( i=0; i<NumElements; i++ )
 	sprintf( szIonFracFilename, "Radiation_Model/atomic_data/balances/%s.bal", buffer1 );
 
 	// Instantiate each element object
-	ppElements[i] = new CElement( pZ[i], szRangesFilename, szRatesFilename, szIonFracFilename );
+	ppElements[i] = new CElement( pZ[i], szRangesFilename, szRatesFilename, szIonFracFilename, safety_atomic, cutoff_ion_fraction );
 }
 
 fclose( pFile );

@@ -19,8 +19,11 @@
 #include "../../src/fitpoly.h"
 
 
-CElement::CElement( int iZ, char *szRangesFilename, char *szRatesFilename, char *szIonFracFilename )
+CElement::CElement( int iZ, char *szRangesFilename, char *szRatesFilename, char *szIonFracFilename, double safety_atomic_input, double cutoff_ion_fraction_input )
 {
+//Set some member variables
+safety_atomic = safety_atomic_input;
+cutoff_ion_fraction = cutoff_ion_fraction_input;
 Initialise( iZ, szRangesFilename, szRatesFilename, szIonFracFilename );
 }
 
@@ -273,7 +276,7 @@ FitPolynomial( x, y, 4, flog_10T, &IonFrac, &error );
 #ifdef ZERO_BELOW_CUTOFF
 
 // Ensure the minimum ion fraction remains above the cut-off and is physically realistic
-if( IonFrac < CUTOFF_ION_FRACTION )
+if( IonFrac < cutoff_ion_fraction )
 	IonFrac = 0.0;
 
 #else // ZERO_BELOW_CUTOFF
@@ -341,19 +344,19 @@ for( iIndex=0; iIndex<=Z; iIndex++ )
 	pdnibydt[iIndex] = term5;
 
 #ifdef ATOMIC_TIME_SCALE
-	if( term5 && pni[iIndex] > CUTOFF_ION_FRACTION )
+	if( term5 && pni[iIndex] > cutoff_ion_fraction )
 	{
 		term5 = fabs( term5 );
 
 		// epsilon_d = 0.1;
-		delta_t1 = SAFETY_ATOMIC * ( 0.1 / term5 );
+		delta_t1 = safety_atomic * ( 0.1 / term5 );
 
 		// epsilon_r = 0.6
 		// |(10^-epsilon_r - 1.0)| = 0.748811357
 		// 10^epsilon_r - 1.0 = 2.981071706
 		// 0.748811357 + 2.981071706 = 3.729883062
 		// 0.5 * 3.729883062 = 1.864941531
-		delta_t2 = SAFETY_ATOMIC * 1.864941531 * ( pni[iIndex] / term5 );
+		delta_t2 = safety_atomic * 1.864941531 * ( pni[iIndex] / term5 );
 
 		TimeScale = min( delta_t1, delta_t2 );
 	}

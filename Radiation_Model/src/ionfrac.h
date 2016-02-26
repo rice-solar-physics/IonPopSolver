@@ -21,6 +21,9 @@ class CIonFrac {
 
 	// The number of elements for which ion fractional populations are available
 	int NumElements;
+	
+	// Numerical factors used in atomic calculations
+	double cutoff_ion_fraction;
 
 	// Pointer to an array containing each element's atomic number.  The offset
 	// of the atomic number corresponds to the offset of the ionisation fraction 
@@ -45,7 +48,7 @@ class CIonFrac {
 	public:
 
 	// Constructor
-	CIonFrac( CIonFrac *pIonFrac, char *szFilename, PRADIATION pRadiationObj, double flog_10T );
+	CIonFrac( CIonFrac *pIonFrac, char *szFilename, PRADIATION pRadiationObj, double flog_10T, double cutoff_ion_fraction_input );
 	
 	// Destructor
 	~CIonFrac( void );

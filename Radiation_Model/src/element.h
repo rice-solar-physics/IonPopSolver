@@ -9,7 +9,7 @@
 // ****
 
 
-#define CUTOFF_ION_FRACTION	1e-300
+//#define CUTOFF_ION_FRACTION	1e-300
 #define ZERO_BELOW_CUTOFF
 
 // The maximum (log_10) density above which the plasma is not optically thin
@@ -19,7 +19,7 @@
 #define LONG_TIME_SCALE 1e300
 
 #define ATOMIC_TIME_SCALE
-#define SAFETY_ATOMIC 0.1
+//#define SAFETY_ATOMIC 0.1
 
 
 class CElement {
@@ -34,6 +34,9 @@ class CElement {
 	
 	// The number of temperature and density values
 	int NumTemp, NumDen;
+	
+	// Numerical parameters
+	double safety_atomic, cutoff_ion_fraction;
 	
 	// The temperature and density values in log_10 form
 	double *pTemp, *pDen;
@@ -62,7 +65,7 @@ class CElement {
 	public:
 	
 	// Constructor
-	CElement( int iZ, char *szRangesFilename, char *szRatesFilename, char *szIonFracFilename );
+	CElement( int iZ, char *szRangesFilename, char *szRatesFilename, char *szIonFracFilename, double safety_atomic_input, double cutoff_ion_fraction_input );
 	
 	// Destructor
 	~CElement( void );

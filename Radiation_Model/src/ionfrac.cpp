@@ -18,8 +18,10 @@
 #include "../../src/fitpoly.h"
 
 
-CIonFrac::CIonFrac( CIonFrac *pIonFrac, char *szFilename, PRADIATION pRadiationObj, double flog_10T )
+CIonFrac::CIonFrac( CIonFrac *pIonFrac, char *szFilename, PRADIATION pRadiationObj, double flog_10T, double cutoff_ion_fraction_input )
 {
+//Initialize numerical atomic factors
+cutoff_ion_fraction = cutoff_ion_fraction_input;
 Initialise( pIonFrac, szFilename, pRadiationObj, flog_10T );
 }
 
@@ -252,7 +254,7 @@ for( i=0; i<NumElements; i++ )
 #ifdef ZERO_BELOW_CUTOFF
 
 		// Ensure the minimum ion fraction remains above the cut-off and is physically realistic
-        if( ppIonFrac[i][j] < CUTOFF_ION_FRACTION )
+        if( ppIonFrac[i][j] < cutoff_ion_fraction )
 	        ppIonFrac[i][j] = 0.0; 
 
 #else // ZERO_BELOW_CUTOFF
@@ -289,7 +291,7 @@ for( j=0; j<=pZ[i]; j++ )
 #ifdef ZERO_BELOW_CUTOFF
 	
 	// Ensure the minimum ion fraction remains above the cut-off and is physically realistic
-    if( ppIonFrac[i][j] < CUTOFF_ION_FRACTION )
+    if( ppIonFrac[i][j] < cutoff_ion_fraction )
 	   ppIonFrac[i][j] = 0.0;  
 
 #else // ZERO_BELOW_CUTOFF

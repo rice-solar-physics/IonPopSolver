@@ -40,12 +40,15 @@ double *pNonEquil_ni;
 char szFilename[256],szFilename_out[256];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
+double safety_atomic,cutoff_ion_fraction;
 
 //Read command line options using Boost command line parsing library
 namespace po = boost::program_options;
 po::options_description description("A code to solve the ionisation / recombination equations for any given T(t) and n(t)\n\n(c) Dr. Stephen J. Bradshaw\n\nDate last modified: 26/03/2010\n\nUsage");
 description.add_options()
 	("help,h","The help message")
+	("safety_atomic,s",po::value<double>(&safety_atomic)->default_value(0.1),"Step size limit in atomic calculation")
+	("cutoff_ion_fraction,c",po::value<double>(&cutoff_ion_fraction)->default_value(1e-300),"Minimum ion fraction before being set to 0.")
 	("element,Z",po::value<int>(&iZ)->required(),"Atomic number of element")
 	("spec_from,f",po::value<int>(&iSpec_from)->required(),"Spectroscopic number of element (from)")
 	("spec_to,t",po::value<int>(&iSpec_to)->required(),"Spectroscopic number of element (to)")
@@ -80,10 +83,10 @@ for( i=0; i<iNumSteps; i++ )
 fclose( pFile );
 
 // Create the radiation object
-pRadiation = new CRadiation( "Radiation_Model/config/elements.cfg" );
+pRadiation = new CRadiation( "Radiation_Model/config/elements.cfg", safety_atomic, cutoff_ion_fraction );
 
 // Initialise the fractional populations of the ions
-pIonFrac = new CIonFrac( NULL, "Radiation_Model/config/elements.cfg", pRadiation, log10( pfT[0] ) );
+pIonFrac = new CIonFrac( NULL, "Radiation_Model/config/elements.cfg", pRadiation, log10( pfT[0] ), cutoff_ion_fraction );
 ppni = pIonFrac->ppGetIonFrac();
 ppdnibydt = pIonFrac->ppGetdnibydt();
 pNonEquil_ni = pIonFrac->pGetIonFrac( iZ );
