@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <math.h>
+#include <time.h>
 
 #include "boost/program_options.hpp"
 
@@ -41,6 +42,12 @@ char szFilename[256],szFilename_out[256];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
 double safety_atomic,cutoff_ion_fraction;
+//timing information
+clock_t time_start;
+clock_t time_diff;
+double time_elapsed;
+//start the timer
+time_start = clock();
 
 //Read command line options using Boost command line parsing library
 namespace po = boost::program_options;
@@ -203,6 +210,13 @@ free( pfT );
 free( pft );
 
 printf( "\n\n" );
+
+//Stop the timer
+time_diff = clock() - time_start;
+time_elapsed = time_diff/CLOCKS_PER_SEC;
+	
+//Time elapsed
+printf("The process took %f seconds to run.\n",time_elapsed);
 
 return 0;
 }
