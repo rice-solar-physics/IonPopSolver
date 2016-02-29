@@ -1,6 +1,6 @@
 // ****
 // *
-// * A code to solve the ionisation / recombination 
+// * A code to solve the ionisation / recombination
 // * equations for any given T(t) and n(t)
 // *
 // * (c) Dr. Stephen J. Bradshaw
@@ -38,7 +38,7 @@ double *pft, *pfT, *pfn;
 double x[3], y[3], pstep;
 double **ppni, **ppdnibydt;
 double *pNonEquil_ni;
-char szFilename[256],szFilename_out[256];
+char szFilename[512],szFilename_out[512];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
 double safety_atomic,cutoff_ion_fraction;
@@ -101,7 +101,7 @@ pNonEquil_ni = pIonFrac->pGetIonFrac( iZ );
 // Open the data file for output
 if(!vm.count("output_file"))
 {
-	sprintf( szFilename_out, "Z%i.txt", iZ );	
+	sprintf( szFilename_out, "Z%i.txt", iZ );
 }
 else
 {
@@ -144,7 +144,7 @@ while( ft < pft[iNumSteps-1] )
 
 		for( iSpec=iSpec_from; iSpec<=iSpec_to; iSpec++ )
 			fprintf( pFile, "\t%g", pNonEquil_ni[iSpec-1] );
-			
+
 		fprintf( pFile, "\n" );
 	}
 
@@ -162,7 +162,7 @@ while( ft < pft[iNumSteps-1] )
 	}
 	else
 		ft += fdt;
-	
+
 	// Time-step the ion populations
 	pIonFrac->IntegrateAllIonFrac( fdt );
 
@@ -170,7 +170,7 @@ while( ft < pft[iNumSteps-1] )
 
 	x[1] = pft[i-1];
 	x[2] = pft[i];
-	
+
 	y[1] = pfT[i-1];
 	y[2] = pfT[i];
 	LinearFit( x, y, ft, &fT );
@@ -197,7 +197,7 @@ fprintf( pFile, "\t%g", fn );
 
 for( iSpec=iSpec_from; iSpec<=iSpec_to; iSpec++ )
 	fprintf( pFile, "\t%g", pNonEquil_ni[iSpec-1] );
-			
+
 fprintf( pFile, "\n" );
 
 fclose( pFile );
@@ -214,7 +214,7 @@ printf( "\n\n" );
 //Stop the timer
 time_diff = clock() - time_start;
 time_elapsed = time_diff/CLOCKS_PER_SEC;
-	
+
 //Time elapsed
 printf("The process took %f seconds to run.\n",time_elapsed);
 
