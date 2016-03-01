@@ -60,7 +60,7 @@ description.add_options()
 	("spec_from,f",po::value<int>(&iSpec_from)->required(),"Spectroscopic number of element (from)")
 	("spec_to,t",po::value<int>(&iSpec_to)->required(),"Spectroscopic number of element (to)")
 	("input_file,I",po::value<std::string>(&szFilename)->required(),"Data file containing T(t) and n(t)")
-	("output_file,O",po::value<std::string>(&szFilename_out),"File to print results to.");
+	("output_file,O",po::value<std::string>(&szFilename_out)->required(),"File to print results to.");
 po::variables_map vm;
 po::store(po::command_line_parser(argc,argv).options(description).run(), vm);
 if(vm.count("help"))
