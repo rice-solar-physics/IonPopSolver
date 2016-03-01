@@ -38,7 +38,7 @@ double *pft, *pfT, *pfn;
 double x[3], y[3], pstep;
 double **ppni, **ppdnibydt;
 double *pNonEquil_ni;
-char szFilename[512],szFilename_out[512];
+char szFilename[256],szFilename_out[256];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
 double safety_atomic,cutoff_ion_fraction;
