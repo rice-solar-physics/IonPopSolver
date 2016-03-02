@@ -3,7 +3,7 @@ UNAME=$(shell uname)
 CXX=g++
 CXXFLAGS=-Wall -g -O3
 ifeq ($(UNAME),Darwin)
-LFLAGS=-L /opt/local/lib -lboost_program_options-mt
+LFLAGS=-L /opt/local/lib -lboost_program_options-mt -ltinyxml
 else
 LFLAGS=-L /usr/lib/x86_64-linux-gnu -lboost_program_options
 endif
