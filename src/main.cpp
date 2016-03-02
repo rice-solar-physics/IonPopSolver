@@ -19,9 +19,9 @@
 
 #include "boost/program_options.hpp"
 
-#include "../Radiation_Model/src/ionfrac.h"
-#include "../src/fitpoly.h"
-#include "../src/file.h"
+#include "../Radiation_Model/source/ionfrac.h"
+#include "../rsp_toolkit/source/fitpoly.h"
+#include "../rsp_toolkit/source/file.h"
 
 #define STEPS		1		// Minimum number of integration steps to take between time intervals of sample
 
@@ -39,10 +39,9 @@ double x[3], y[3], pstep;
 double **ppni, **ppdnibydt;
 double *pNonEquil_ni;
 std::string szFilename,szFilename_out;
-char atomicDbFilename[256],radConfigFilename[256];
+char radConfigFilename[256];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
-double safety_atomic,cutoff_ion_fraction;
 //timing information
 clock_t time_start;
 clock_t time_diff;
@@ -55,15 +54,12 @@ namespace po = boost::program_options;
 po::options_description description("A code to solve the ionisation / recombination equations for any given T(t) and n(t)\n\n(c) Dr. Stephen J. Bradshaw\n\nDate last modified: 26/03/2010\n\nUsage");
 description.add_options()
 	("help,h","The help message")
-	("safety_atomic,s",po::value<double>(&safety_atomic)->default_value(0.1),"Step size limit in atomic calculation")
-	("cutoff_ion_fraction,c",po::value<double>(&cutoff_ion_fraction)->default_value(1e-300),"Minimum ion fraction before being set to 0.")
 	("element,Z",po::value<int>(&iZ)->required(),"Atomic number of element")
 	("spec_from,f",po::value<int>(&iSpec_from)->required(),"Spectroscopic number of element (from)")
 	("spec_to,t",po::value<int>(&iSpec_to)->required(),"Spectroscopic number of element (to)")
 	("input_file,I",po::value<std::string>(&szFilename)->required(),"Data file containing T(t) and n(t)")
 	("output_file,O",po::value<std::string>(&szFilename_out)->required(),"File to print results to.")
-	("atomic_db,a",po::value<std::string>()->default_value("Radiation_Model/atomic_data/"),"Root directory for atomic data")
-	("rad_config,r",po::value<std::string>()->default_value("Radiation_Model/config/elements.cfg"),"Configuration file for radiation class");
+	("rad_config,r",po::value<std::string>()->default_value("Test_Profiles/radiation.cfg.xml"),"Configuration file for radiation class");
 po::variables_map vm;
 po::store(po::command_line_parser(argc,argv).options(description).run(), vm);
 if(vm.count("help"))
@@ -74,7 +70,6 @@ if(vm.count("help"))
 po::notify(vm);
 
 //Copy strings to char arrays
-std::strcpy(atomicDbFilename,vm["atomic_db"].as<std::string>().c_str());
 std::strcpy(radConfigFilename,vm["rad_config"].as<std::string>().c_str());
 
 // Read the values from the date file containing T(t) and n(t)
@@ -96,13 +91,19 @@ for( i=0; i<iNumSteps; i++ )
 fclose( pFile );
 
 // Create the radiation object
-pRadiation = new CRadiation( radConfigFilename, atomicDbFilename, safety_atomic, cutoff_ion_fraction );
+pRadiation = new CRadiation( radConfigFilename );
 
 // Initialise the fractional populations of the ions
-pIonFrac = new CIonFrac( NULL, radConfigFilename, pRadiation, log10( pfT[0] ), cutoff_ion_fraction );
+pIonFrac = new CIonFrac( NULL, radConfigFilename, pRadiation );
 ppni = pIonFrac->ppGetIonFrac();
 ppdnibydt = pIonFrac->ppGetdnibydt();
 pNonEquil_ni = pIonFrac->pGetIonFrac( iZ );
+
+//Set equilibrium ion fractions for initial temperature
+for(i=0; i<pIonFrac->NumElements; i++)
+{
+	pRadiation->GetEquilIonFrac(pIonFrac->pZ[i],ppni[i],log10(pfT[0]));
+}
 
 pFile = fopen( szFilename_out.c_str(), "w" );
 
