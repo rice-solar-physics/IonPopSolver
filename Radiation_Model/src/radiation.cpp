@@ -16,9 +16,9 @@
 #include "radiation.h"
 
 
-CRadiation::CRadiation( char *szFilename, double safety_atomic, double cutoff_ion_fraction )
+CRadiation::CRadiation( char *szFilename, char *atomic_db, double safety_atomic, double cutoff_ion_fraction )
 {
-Initialise( szFilename, safety_atomic, cutoff_ion_fraction );
+Initialise( szFilename, atomic_db, safety_atomic, cutoff_ion_fraction );
 }
 
 CRadiation::~CRadiation( void )
@@ -26,7 +26,7 @@ CRadiation::~CRadiation( void )
 FreeAll();
 }
 
-void CRadiation::Initialise( char *szFilename, double safety_atomic, double cutoff_ion_fraction )
+void CRadiation::Initialise( char *szFilename, char *atomic_db, double safety_atomic, double cutoff_ion_fraction )
 {
 FILE *pFile;
 char buffer1[16];
@@ -37,7 +37,7 @@ pFile = fopen( szFilename, "r" );
 
 // Get the range definition filename
 fscanf( pFile, "%s", buffer1 );
-sprintf( szRangesFilename, "Radiation_Model/atomic_data/ranges/%s.rng", buffer1 );
+sprintf( szRangesFilename, "%sranges/%s.rng", atomic_db, buffer1 );
 
 // Get the number of elements from the file
 fscanf( pFile, "%i", &NumElements );
@@ -57,8 +57,8 @@ for( i=0; i<NumElements; i++ )
 	fscanf( pFile, "%i", &(pZ[i]) );
 	
 	// Construct the filenames
-	sprintf( szRatesFilename, "Radiation_Model/atomic_data/rates/%s.rts", buffer1 );
-	sprintf( szIonFracFilename, "Radiation_Model/atomic_data/balances/%s.bal", buffer1 );
+	sprintf( szRatesFilename, "%srates/%s.rts", atomic_db, buffer1 );
+	sprintf( szIonFracFilename, "%sbalances/%s.bal", atomic_db, buffer1 );
 
 	// Instantiate each element object
 	ppElements[i] = new CElement( pZ[i], szRangesFilename, szRatesFilename, szIonFracFilename, safety_atomic, cutoff_ion_fraction );

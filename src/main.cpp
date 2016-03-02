@@ -39,6 +39,7 @@ double x[3], y[3], pstep;
 double **ppni, **ppdnibydt;
 double *pNonEquil_ni;
 std::string szFilename,szFilename_out;
+char atomicDbFilename[256],radConfigFilename[256];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
 double safety_atomic,cutoff_ion_fraction;
@@ -60,7 +61,9 @@ description.add_options()
 	("spec_from,f",po::value<int>(&iSpec_from)->required(),"Spectroscopic number of element (from)")
 	("spec_to,t",po::value<int>(&iSpec_to)->required(),"Spectroscopic number of element (to)")
 	("input_file,I",po::value<std::string>(&szFilename)->required(),"Data file containing T(t) and n(t)")
-	("output_file,O",po::value<std::string>(&szFilename_out)->required(),"File to print results to.");
+	("output_file,O",po::value<std::string>(&szFilename_out)->required(),"File to print results to.")
+	("atomic_db,a",po::value<std::string>()->default_value("Radiation_Model/atomic_data/"),"Root directory for atomic data")
+	("rad_config,r",po::value<std::string>()->default_value("Radiation_Model/config/elements.cfg"),"Configuration file for radiation class");
 po::variables_map vm;
 po::store(po::command_line_parser(argc,argv).options(description).run(), vm);
 if(vm.count("help"))
@@ -69,6 +72,10 @@ if(vm.count("help"))
 	return 0;
 }
 po::notify(vm);
+
+//Copy strings to char arrays
+std::strcpy(atomicDbFilename,vm["atomic_db"].as<std::string>().c_str());
+std::strcpy(radConfigFilename,vm["rad_config"].as<std::string>().c_str());
 
 // Read the values from the date file containing T(t) and n(t)
 pFile = fopen( szFilename.c_str(), "r" );
@@ -89,10 +96,10 @@ for( i=0; i<iNumSteps; i++ )
 fclose( pFile );
 
 // Create the radiation object
-pRadiation = new CRadiation( "Radiation_Model/config/elements.cfg", safety_atomic, cutoff_ion_fraction );
+pRadiation = new CRadiation( radConfigFilename, atomicDbFilename, safety_atomic, cutoff_ion_fraction );
 
 // Initialise the fractional populations of the ions
-pIonFrac = new CIonFrac( NULL, "Radiation_Model/config/elements.cfg", pRadiation, log10( pfT[0] ), cutoff_ion_fraction );
+pIonFrac = new CIonFrac( NULL, radConfigFilename, pRadiation, log10( pfT[0] ), cutoff_ion_fraction );
 ppni = pIonFrac->ppGetIonFrac();
 ppdnibydt = pIonFrac->ppGetdnibydt();
 pNonEquil_ni = pIonFrac->pGetIonFrac( iZ );
