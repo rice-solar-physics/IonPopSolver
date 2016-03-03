@@ -28,5 +28,5 @@
 *.app
 bin/*
 
-# Deprecated code
-deprecated/
+# SCons 
+.sconsign.dblite
