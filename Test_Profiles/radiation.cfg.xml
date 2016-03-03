@@ -28,10 +28,10 @@
 		<element name="k" number="19"/>
 		<element name="ca" number="20"/>
 		<element name="sc" number="21"/>
-		<element name="ti" number= "22"/>
+		<element name="ti" number="22"/>
 		<element name="v" number="23"/>
-		<element name="cr" number= "24"/>
-		<element name="mn" number= "25"/>
+		<element name="cr" number="24"/>
+		<element name="mn" number="25"/>
 		<element name="fe" number="26"/>
 		<element name="co" number="27"/>		
 		<element name="ni" number="28"/>
@@ -39,7 +39,7 @@
 	<density_dependent_rates>false</density_dependent_rates>
 	<minimum_collisional_coupling_time_scale>0.01</minimum_collisional_coupling_time_scale>
 	<max_optically_thin_density>12.0</max_optically_thin_density>
-	<safety_atomic>1.0</safety_atomic>
+	<safety_atomic>0.1</safety_atomic>
 	<cutoff_ion_fraction>1.0e-6</cutoff_ion_fraction>
 	<epsilon_d>0.1</epsilon_d>
 	<epsilon_r>1.8649415311920072</epsilon_r>

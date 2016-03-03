@@ -72,6 +72,9 @@ po::notify(vm);
 //Copy strings to char arrays
 std::strcpy(radConfigFilename,vm["rad_config"].as<std::string>().c_str());
 
+//DEBUG
+printf("Parsed the command line parameters, copied the rad config string.\n");
+
 // Read the values from the date file containing T(t) and n(t)
 pFile = fopen( szFilename.c_str(), "r" );
 fscanf( pFile, "%i", &iNumSteps );
@@ -91,7 +94,7 @@ for( i=0; i<iNumSteps; i++ )
 fclose( pFile );
 
 // Create the radiation object
-pRadiation = new CRadiation( radConfigFilename );
+pRadiation = new CRadiation( radConfigFilename, false );
 
 // Initialise the fractional populations of the ions
 pIonFrac = new CIonFrac( NULL, radConfigFilename, pRadiation );

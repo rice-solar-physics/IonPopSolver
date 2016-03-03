@@ -8,7 +8,7 @@ else
 LFLAGS=-L /usr/lib/x86_64-linux-gnu -lboost_program_options
 endif
 #set source and object files
-SOURCES=$(wildcard src/*cpp)
+SOURCES=$(wildcard source/*cpp)
 SOURCES_RAD=$(wildcard Radiation_Model/source/*.cpp)
 SOURCES_TOOLKIT=$(wildcard rsp_toolkit/source/*.cpp)
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
@@ -21,7 +21,7 @@ bin/Ion_Pop_Solver: make_src make_rad_src make_toolkit_src
 	$(CXX) $(OBJECTS) $(OBJECTS_RAD) $(OBJECTS_TOOLKIT) -o $@ $(LFLAGS)
 	
 make_src:
-	cd src; make
+	cd source; make
 	
 make_rad_src:
 	cd Radiation_Model/source; make
@@ -30,6 +30,7 @@ make_toolkit_src:
 	cd rsp_toolkit/source; make
 
 clean:
-	cd src; make clean
-	cd Radiation_Model/src; make clean
+	cd source; make clean
+	cd Radiation_Model/source; make clean
+	cd rsp_toolkit/source; make clean
 	$(RM) bin/Ion_Pop_Solver
