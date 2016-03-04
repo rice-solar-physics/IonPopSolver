@@ -90,8 +90,14 @@ for( i=0; i<iNumSteps; i++ )
 
 fclose( pFile );
 
+//DEBUG
+printf("Successfully read in t,T,n profiles\n");
+
 // Create the radiation object
 pRadiation = new CRadiation( radConfigFilename, false );
+
+//DEBUG
+printf("Created radiation object\n");
 
 // Initialise the fractional populations of the ions
 pIonFrac = new CIonFrac( NULL, radConfigFilename, pRadiation );
@@ -99,13 +105,22 @@ ppni = pIonFrac->ppGetIonFrac();
 ppdnibydt = pIonFrac->ppGetdnibydt();
 pNonEquil_ni = pIonFrac->pGetIonFrac( iZ );
 
+//DEBUG
+printf("Created ionization fraction object, set pointers.\n");
+
 //Set equilibrium ion fractions for initial temperature
 for(i=0; i<pIonFrac->NumElements; i++)
 {
 	pRadiation->GetEquilIonFrac(pIonFrac->pZ[i],ppni[i],log10(pfT[0]));
 }
 
+//DEBUG
+printf("Got equilibrium ionization fractions, set pointers.\n");
+
 pFile = fopen( szFilename_out.c_str(), "w" );
+
+//DEBUG
+printf("Opened output file.\n");
 
 // Progress bar
 pstep = 10.0;
@@ -124,6 +139,11 @@ while( ft < pft[iNumSteps-1] )
 {
 	// Get the populations, time-derivatives and time-scale for integration
 	pRadiation->GetAlldnibydt( log10( fT ), log10( fn ), ppni, ppdnibydt, &fdt );
+	
+	//DEBUG
+	printf("t=%f s, dt=%f s\n",ft,fdt);
+	printf("T=%f K, n=%f cm^-3\n",fT,fn);
+	
 	// Make sure that at least STEPS time steps are taken during this phase
 	// It may be necessary to alter the value of SAFETY_ATOMIC in element.h to
 	// check for convergence
@@ -165,7 +185,6 @@ while( ft < pft[iNumSteps-1] )
 	pIonFrac->IntegrateAllIonFrac( fdt );
 
 	// Get the correct temperature and density at the current time
-
 	x[1] = pft[i-1];
 	x[2] = pft[i];
 
@@ -199,6 +218,9 @@ for( iSpec=iSpec_from; iSpec<=iSpec_to; iSpec++ )
 fprintf( pFile, "\n" );
 
 fclose( pFile );
+
+//DEBUG
+printf("Printed results to %s\n",szFilename_out.c_str());
 
 delete pIonFrac;
 delete pRadiation;
