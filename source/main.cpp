@@ -141,8 +141,8 @@ while( ft < pft[iNumSteps-1] )
 	pRadiation->GetAlldnibydt( log10( fT ), log10( fn ), ppni, ppdnibydt, &fdt );
 	
 	//DEBUG
-	printf("t=%f s, dt=%f s\n",ft,fdt);
-	printf("T=%f K, n=%f cm^-3\n",fT,fn);
+	printf("t=%g s, dt=%g s\n",ft,fdt);
+	printf("T=%g K, n=%g cm^-3\n",fT,fn);
 	
 	// Make sure that at least STEPS time steps are taken during this phase
 	// It may be necessary to alter the value of SAFETY_ATOMIC in element.h to
