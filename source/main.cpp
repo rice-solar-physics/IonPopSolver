@@ -86,18 +86,14 @@ for( i=0; i<iNumSteps; i++ )
 	ReadDouble( pFile, &(pft[i]) );
 	ReadDouble( pFile, &(pfT[i]) );
 	ReadDouble( pFile, &(pfn[i]) );
+	//DEBUG
+	printf("From file: t=%g, T=%g, n=%g\n",pft[i],pfT[i],pfn[i]);
 }
 
 fclose( pFile );
 
-//DEBUG
-printf("Successfully read in t,T,n profiles\n");
-
 // Create the radiation object
 pRadiation = new CRadiation( radConfigFilename, false );
-
-//DEBUG
-printf("Created radiation object\n");
 
 // Initialise the fractional populations of the ions
 pIonFrac = new CIonFrac( NULL, radConfigFilename, pRadiation );
@@ -105,22 +101,13 @@ ppni = pIonFrac->ppGetIonFrac();
 ppdnibydt = pIonFrac->ppGetdnibydt();
 pNonEquil_ni = pIonFrac->pGetIonFrac( iZ );
 
-//DEBUG
-printf("Created ionization fraction object, set pointers.\n");
-
 //Set equilibrium ion fractions for initial temperature
 for(i=0; i<pIonFrac->NumElements; i++)
 {
 	pRadiation->GetEquilIonFrac(pIonFrac->pZ[i],ppni[i],log10(pfT[0]));
 }
 
-//DEBUG
-printf("Got equilibrium ionization fractions, set pointers.\n");
-
 pFile = fopen( szFilename_out.c_str(), "w" );
-
-//DEBUG
-printf("Opened output file.\n");
 
 // Progress bar
 pstep = 10.0;
