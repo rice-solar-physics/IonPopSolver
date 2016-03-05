@@ -39,7 +39,7 @@ double x[3], y[3], pstep;
 double **ppni, **ppdnibydt;
 double *pNonEquil_ni;
 std::string szFilename,szFilename_out;
-char radConfigFilename[512];
+char radConfigFilename[256];
 int iZ, iSpec_from, iSpec_to, iSpec;
 int i, iNumSteps;
 //timing information
