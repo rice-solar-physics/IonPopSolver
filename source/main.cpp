@@ -86,8 +86,6 @@ for( i=0; i<iNumSteps; i++ )
 	ReadDouble( pFile, &(pft[i]) );
 	ReadDouble( pFile, &(pfT[i]) );
 	ReadDouble( pFile, &(pfn[i]) );
-	//DEBUG
-	printf("From file: t=%g, T=%g, n=%g\n",pft[i],pfT[i],pfn[i]);
 }
 
 fclose( pFile );
