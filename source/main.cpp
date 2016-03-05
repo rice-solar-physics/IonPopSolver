@@ -125,6 +125,9 @@ while( ft < pft[iNumSteps-1] )
 	// Get the populations, time-derivatives and time-scale for integration
 	pRadiation->GetAlldnibydt( log10( fT ), log10( fn ), ppni, ppdnibydt, &fdt );
 	
+	//DEBUG
+	printf("t=%g, dt=%g\n",ft,fdt);
+	
 	// Make sure that at least STEPS time steps are taken during this phase
 	// It may be necessary to alter the value of SAFETY_ATOMIC in element.h to
 	// check for convergence
@@ -199,9 +202,6 @@ for( iSpec=iSpec_from; iSpec<=iSpec_to; iSpec++ )
 fprintf( pFile, "\n" );
 
 fclose( pFile );
-
-//DEBUG
-printf("Printed results to %s\n",szFilename_out.c_str());
 
 delete pIonFrac;
 delete pRadiation;
