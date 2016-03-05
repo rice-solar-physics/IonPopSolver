@@ -125,10 +125,6 @@ while( ft < pft[iNumSteps-1] )
 	// Get the populations, time-derivatives and time-scale for integration
 	pRadiation->GetAlldnibydt( log10( fT ), log10( fn ), ppni, ppdnibydt, &fdt );
 	
-	//DEBUG
-	printf("t=%g s, dt=%g s\n",ft,fdt);
-	printf("T=%g K, n=%g cm^-3\n",fT,fn);
-	
 	// Make sure that at least STEPS time steps are taken during this phase
 	// It may be necessary to alter the value of SAFETY_ATOMIC in element.h to
 	// check for convergence
