@@ -10,7 +10,7 @@ import os
 subdirs = ['Radiation_Model','rsp_toolkit','source']
 
 #Build C++ environment
-env = Environment(CXX='g++',CXXFLAGS=['-g','-O3','-Wall'])
+env = Environment(CXX='g++',CXXFLAGS=['-g','-O3','-fno-stack-protector','-Wall'])
 
 #Check OS and change include path
 if 'darwin' in sys.platform:
