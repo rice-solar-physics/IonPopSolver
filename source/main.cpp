@@ -25,9 +25,10 @@
 
 #define STEPS		1		// Minimum number of integration steps to take between time intervals of sample
 
-int main(int argc, char **argv)
-{
 double fGet_Teff( PRADIATION pRadiation, double *pNonEquil_ni, int iZ );
+
+int main(int argc, char* argv[])
+{
 
 PRADIATION pRadiation;
 PIONFRAC pIonFrac;
