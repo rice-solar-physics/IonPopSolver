@@ -98,14 +98,16 @@ pRadiation = new CRadiation( radConfigFilename, false );
 // Initialise the fractional populations of the ions
 pIonFrac = new CIonFrac( NULL, radConfigFilename, pRadiation );
 ppni = pIonFrac->ppGetIonFrac();
-ppdnibydt = pIonFrac->ppGetdnibydt();
-pNonEquil_ni = pIonFrac->pGetIonFrac( iZ );
 
 //Set equilibrium ion fractions for initial temperature
 for(i=0; i<pIonFrac->NumElements; i++)
 {
 	pRadiation->GetEquilIonFrac(pIonFrac->pZ[i],ppni[i],log10(pfT[0]));
 }
+
+// Set pointers
+ppdnibydt = pIonFrac->ppGetdnibydt();
+pNonEquil_ni = pIonFrac->pGetIonFrac( iZ );
 
 pFile = fopen( szFilename_out, "w" );
 
