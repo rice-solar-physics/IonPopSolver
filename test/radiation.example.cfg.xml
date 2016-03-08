@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <root>
-	<atomicDB>/Users/willbarnes/Documents/Rice/Research/apolloDB/</atomicDB>
+	<atomicDB>/my/custom/path/to/apolloDB/</atomicDB>
 	<rangesFile>ranges.01dex.rng</rangesFile>
 	<emissivityDir>chianti_v7/</emissivityDir>
 	<abundanceFile>asplund.ab</abundanceFile>
@@ -40,7 +40,7 @@
 	<minimum_collisional_coupling_time_scale>0.01</minimum_collisional_coupling_time_scale>
 	<max_optically_thin_density>12.0</max_optically_thin_density>
 	<safety_atomic>0.1</safety_atomic>
-	<cutoff_ion_fraction>1.0e-6</cutoff_ion_fraction>
+	<cutoff_ion_fraction>1.0e-300</cutoff_ion_fraction>
 	<epsilon_d>0.1</epsilon_d>
 	<epsilon_r>1.8649415311920072</epsilon_r>
 </root>

@@ -59,7 +59,7 @@ description.add_options()
 	("spec_to,t",po::value<int>(&iSpec_to)->required(),"Spectroscopic number of element (to)")
 	("input_file,I",po::value<std::string>()->required(),"Data file containing T(t) and n(t)")
 	("output_file,O",po::value<std::string>()->required(),"File to print results to.")
-	("rad_config,r",po::value<std::string>()->default_value("Test_Profiles/radiation.cfg.xml"),"Configuration file for radiation class");
+	("rad_config,r",po::value<std::string>()->default_value("test/radiation.example.cfg.xml"),"Configuration file for radiation class");
 po::variables_map vm;
 po::store(po::command_line_parser(argc,argv).options(description).run(), vm);
 if(vm.count("help"))

@@ -30,3 +30,6 @@ bin/*
 
 # SCons 
 .sconsign.dblite
+
+# Local configuration
+test/radiation.local.cfg.xml
