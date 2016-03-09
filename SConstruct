@@ -14,17 +14,20 @@ env = Environment(CXX='g++',CXXFLAGS=['-g','-O3','-fno-stack-protector','-Wall']
 
 #Check OS and change include path
 if 'darwin' in sys.platform:
+    print("Using Mac OS X compile options.")
     env.Append(CPPPATH=['/opt/local/include','/usr/include/malloc'])
     env.Append(LIBS=['boost_program_options-mt'])
     env.Append(LIBPATH=['/opt/local/lib'])
 elif 'linux' in sys.platform:
+    print("Using Linux compile options.")
     env.Append(CPPPATH=['/usr/include'])
     env.Append(LIBS=['boost_program_options'])
     env.Append(LIBPATH=['/usr/lib/x86_64-linux-gnu'])
 else:
-    print("Unrecognized platform. Set CPPPATH manually.")
-    sys.exit(1)
-    #TODO: add Windows option here; where is malloc.h in Cygwin?
+    print("Unrecognized platform. Using Windows compile options.")
+    env.Append(CPPPATH=['/usr/include'])
+    env.Append(LIBS=['boost_program_options'])
+    env.Append(LIBPATH=['/usr/lib'])
     
 #Iterate over subdirectories
 allobjs = []
