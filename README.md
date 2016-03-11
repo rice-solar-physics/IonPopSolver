@@ -15,15 +15,18 @@ The following are required dependencies for compiling and running IonPopSolver:
 	<td>Windows</td>
   </tr>
   <tr>
-	  <td>`git`</td>
+	  <td><tt>`git`</tt></td>
 	  <td>Version control system; for downloading and updating</td>
 	  <td>included</td>
 	  <td>included</td>
 	  <td><a href="https://www.cygwin.com/">Cygwin</a></td>
   </tr>
   <tr>
-	  <td>`scons`</td>
-	  <td></td>
+	  <td><a href="http://scons.org/"><tt>`scons`</tt></a></td>
+	  <td>Software construction tool; Pythonic alternative to Make</td>
+	  <td><a href="https://www.macports.org/">Macports</a>, <a href="https://www.continuum.io/downloads">Anaconda</a>, <a href="http://scons.org/pages/download.html">tarball</a></td>
+	  <td>`apt-get`, <a href="https://www.continuum.io/downloads">Anaconda</a>, <a href="http://scons.org/pages/download.html">tarball</a></td>
+	  <td><a href="https://www.cygwin.com/">Cygwin</a></td>
   </tr>
 </table>
  
