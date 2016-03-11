@@ -40,10 +40,13 @@ IonPopSolver has been successfully tested and run on Mac OS X, Linux (Ubuntu 14.
 ### Installing Boost on Windows
 While the Boost libraries can be downloaded using the Cygwin package installer, building and linking has proved difficult. The best and simplest way for Windows users to acquire the Boost libraries is just to download the source code and build the one needed library, <tt>program_options</tt>.
 
-+ First, download the Boost libraries tarball from [source](http://www.boost.org/users/history/version_1_55_0.html). Download the `.tar.gz` file for the Unix platform. 
++ First, download the Boost libraries tarball from [source](http://www.boost.org/users/history/version_1_55_0.html). Download the `.tar.gz` file for the Unix platform into a convenient directory `$DOWNLOADS`.
 
 + Untar/unzip the compressed source
-> `tar xvzf boost_1_55_0.tar.gz`
+```Shell
+    cd $DOWNLOADS
+    tar xvzf boost_1_55_0.tar.gz
+```
 
 + Change directories into the now uncompressed Boost directory.
 > `cd boost_1_55_0`
