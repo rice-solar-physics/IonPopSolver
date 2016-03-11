@@ -135,9 +135,9 @@ IonPopSolver outputs a results file to the path specified by `-O` or `--output_f
 	  <td><i>T( t<sub>0</sub> )</i></td>
 	  <td><i>T<sub>eff</sub>( t<sub>0</sub> )</i></td>
 	  <td><i>n( t<sub>0</sub> )</i></td>
-	  <td><i>Y<sup>Z</sup><sub>s</sub>( t<sub>0</sub> )</i></td>
+	  <td><i>Y<sub>Zs</sub>( t<sub>0</sub> )</i></td>
 	  <td>...</td>
-	  <td><i>Y<sup>Z</sup><sub>e</sub>( t<sub>0</sub> )</i></td>
+	  <td><i>Y<sub>Ze</sub>( t<sub>0</sub> )</i></td>
  </tr>
  <tr>
 	 <td align="center" colspan="7">...</td>
@@ -147,9 +147,9 @@ IonPopSolver outputs a results file to the path specified by `-O` or `--output_f
   <td><i>T( t<sub>i</sub> )</i></td>
   <td><i>T<sub>eff</sub>( t<sub>i</sub> )</i></td>
   <td><i>n( t<sub>i</sub> )</i></td>
-  <td><i>Y<sup>Z</sup><sub>s</sub>( t<sub>i</sub> )</i></td>
+  <td><i>Y<sub>Zs</sub>( t<sub>i</sub> )</i></td>
   <td>...</td>
-  <td><i>Y<sup>Z</sup><sub>e</sub>( t<sub>i</sub> )</i></td>
+  <td><i>Y<sub>Ze</sub>( t<sub>i</sub> )</i></td>
  </tr>
  <tr>
 	 <td align="center" colspan="7">...</td>
@@ -159,8 +159,8 @@ IonPopSolver outputs a results file to the path specified by `-O` or `--output_f
   <td><i>T( t<sub>N-1</sub> )</i></td>
   <td><i>T<sub>eff</sub>( t<sub>N-1</sub> )</i></td>
   <td><i>n( t<sub>N-1</sub> )</i></td>
-  <td><i>Y<sup>Z</sup><sub>s</sub>( t<sub>N-1</sub> )</i></td>
+  <td><i>Y<sub>Zs</sub>( t<sub>N-1</sub> )</i></td>
   <td>...</td>
-  <td><i>Y<sup>Z</sup><sub>e</sub>( t<sub>N-1</sub> )</i></td>
+  <td><i>Y<sub>Ze</sub>( t<sub>N-1</sub> )</i></td>
  </tr>
 </table>
