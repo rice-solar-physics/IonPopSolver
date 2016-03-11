@@ -96,8 +96,7 @@ IonPopSolver has five required arguments and one optional argument.
 
 The input file, specified by the `-I` or `--input_file` flag, should contain the time _t_, the temperature, _T_, and the density _n_, each vectors of length _N_. IonPopSolver expects the file to be structured as follows:
 
-<center>
-<table>
+<table style="align: center">
  <tr>
 	  <td colspan="3"><i>N</i></td>
  </tr>
@@ -127,12 +126,10 @@ The input file, specified by the `-I` or `--input_file` flag, should contain the
   <td><i>n( t<sub>N-1</sub> )</i></td>
  </tr>
 </table>
-</center>
 
 IonPopSolver outputs a results file to the path specified by `-O` or `--output_file` containing the time, temperature, effective temperature, and the ion population fractions, _Y_, for the element _Z_, for all ions between _s_ and _e_, the spectroscopic numbers specified by the `-f` and `-t` options, respectively. The output file is structured as follows:
 
-<center>
-<table>
+<table style="align: center">
  <tr>
 	  <td><i>t<sub>0</sub></i></td>
 	  <td><i>T( t<sub>0</sub> )</i></td>
@@ -143,7 +140,7 @@ IonPopSolver outputs a results file to the path specified by `-O` or `--output_f
 	  <td><i>Y<sup>Z</sup><sub>e</sub>( t<sub>0</sub> )</i></td>
  </tr>
  <tr>
-	 <td colspan="7">...</td>
+	 <td align="center" colspan="7">...</td>
  </tr>
  <tr>
   <td><i>t<sub>i</sub></i></td>
@@ -155,7 +152,7 @@ IonPopSolver outputs a results file to the path specified by `-O` or `--output_f
   <td><i>Y<sup>Z</sup><sub>e</sub>( t<sub>i</sub> )</i></td>
  </tr>
  <tr>
-	 <td colspan="7">...</td>
+	 <td align="center" colspan="7">...</td>
  </tr>
  <tr>
   <td><i>t<sub>N-1</sub></i></td>
@@ -167,4 +164,3 @@ IonPopSolver outputs a results file to the path specified by `-O` or `--output_f
   <td><i>Y<sup>Z</sup><sub>e</sub>( t<sub>N-1</sub> )</i></td>
  </tr>
 </table>
-</center>
