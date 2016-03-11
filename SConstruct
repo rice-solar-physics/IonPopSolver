@@ -25,9 +25,9 @@ elif 'linux' in sys.platform:
     env.Append(LIBPATH=['/usr/lib/x86_64-linux-gnu'])
 else:
     print("Unrecognized platform. Using Windows compile options.")
-    env.Append(CPPPATH=['/usr/include'])
+    env.Append(CPPPATH=['/usr/local/include'])
     env.Append(LIBS=['boost_program_options'])
-    env.Append(LIBPATH=['/usr/lib'])
+    env.Append(LIBPATH=['/usr/local/lib'])
     
 #Iterate over subdirectories
 allobjs = []
