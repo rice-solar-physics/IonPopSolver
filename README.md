@@ -15,7 +15,7 @@ The following are required dependencies for compiling and running IonPopSolver:
 	<td>Windows</td>
   </tr>
   <tr>
-	  <td><tt>git</tt></td>
+	  <td><a href="https://git-scm.com/"><tt>git</tt></a></td>
 	  <td>Version control system; for downloading and updating</td>
 	  <td>included</td>
 	  <td>included</td>
@@ -27,6 +27,13 @@ The following are required dependencies for compiling and running IonPopSolver:
 	  <td><a href="https://www.macports.org/">Macports</a>, <a href="https://www.continuum.io/downloads">Anaconda</a>, <a href="http://scons.org/pages/download.html">tarball</a></td>
 	  <td><tt>apt-get</tt>, <a href="https://www.continuum.io/downloads">Anaconda</a>, <a href="http://scons.org/pages/download.html">tarball</a></td>
 	  <td><a href="https://www.cygwin.com/">Cygwin</a></td>
+  </tr>
+  <tr>
+	  <td><a href="http://www.boost.org/">Boost Libraries</a></td>
+	  <td>Open-source C++ libraries; used for command line options</td>
+	  <td><a href="https://www.macports.org/">Macports</a></td>
+	  <td><tt>apt-get</tt></td>
+	  <td>install from source (see below)</td>
   </tr>
 </table>
  
