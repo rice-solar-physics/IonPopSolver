@@ -96,11 +96,33 @@ IonPopSolver has five required arguments and one optional argument.
 
 The input file should be structured as follows:
 
-| _N_ |
-| <i>t<sub>0</sub></i> | <i>T(t<sub>0</sub>)</i> | <i>n(t<sub>0</sub>)</i> |
-| ... | ... | ... |
-| <i>t<sub>i</sub></i> | <i>T(t<sub>i</sub>)</i> | <i>n(t<sub>i</sub>)</i> |
-| ... | ... | ... |
-| <i>t<sub>N-1</sub></i> | <i>T(t<sub>N-1</sub>)</i> | <i>n(t<sub>N-1</sub>)</i> |
-
-
+<table>
+ <tr>
+	  <td colspan="3">N</td>
+ </tr>
+ <tr>
+	  <td><i>t<sub>0</sub></i></td>
+	  <td><i>T(t<sub>0</sub>)</i></td>
+	  <td><i>n(t<sub>0</sub>)</i></td>
+ </tr>
+ <tr>
+	 <td>...</td>
+	 <td>...</td>
+	 <td>...</td>
+ </tr>
+ <tr>
+  <td><i>t<sub>i</sub></i></td>
+  <td><i>T(t<sub>i</sub>)</i></td>
+  <td><i>n(t<sub>i</sub>)</i></td>
+ </tr>
+ <tr>
+	 <td>...</td>
+	 <td>...</td>
+	 <td>...</td>
+ </tr>
+ <tr>
+  <td><i>t<sub>N-1</sub></i></td>
+  <td><i>T(t<sub>N-1</sub>)</i></td>
+  <td><i>n(t<sub>N-1</sub>)</i></td>
+ </tr>
+</table>
