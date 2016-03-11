@@ -5,14 +5,14 @@ The following are required dependencies for compiling and running IonPopSolver:
  
 <table>
   <tr>
-    <td rowspan="2">Name</td>
-    <td rowspan="2">Description</td>
-	<td colspan="3">Installation</td>
+    <th align="center" rowspan="2">Name</th>
+    <th align="center" rowspan="2">Description</th>
+	<th align="center" colspan="3">Installation</th>
   </tr>
   <tr>
-    <td>Mac OS X</td>
-	<td>Linux</td>
-	<td>Windows</td>
+    <th align="center">Mac OS X</th>
+	<th align="center">Linux</th>
+	<th align="center">Windows</th>
   </tr>
   <tr>
 	  <td><a href="https://git-scm.com/"><tt>git</tt></a></td>
