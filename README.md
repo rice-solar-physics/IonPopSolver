@@ -14,6 +14,17 @@ The following are required dependencies for compiling and running IonPopSolver:
 	<td>Linux</td>
 	<td>Windows</td>
   </tr>
+  <tr>
+	  <td>`git`</td>
+	  <td>Version control system; for downloading and updating</td>
+	  <td>included</td>
+	  <td>included</td>
+	  <td><a href="https://www.cygwin.com/">Cygwin</a></td>
+  </tr>
+  <tr>
+	  <td>`scons`</td>
+	  <td></td>
+  </tr>
 </table>
  
 ## Dependencies
