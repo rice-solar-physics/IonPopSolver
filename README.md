@@ -164,3 +164,61 @@ IonPopSolver outputs a results file to the path specified by `-O` or `--output_f
   <td><i>Y<sub>Ze</sub>( t<sub>N-1</sub> )</i></td>
  </tr>
 </table>
+
+A sample radiation configuration file is provided in `test/radiation.example.cfg.xml`. This is an XML file that sets all of the options that go into the radiation model. __Note: The `atomicDB` field in the radiation configuration file must point at the directory where you installed the `apolloDB` repository. Using the example above, we would set `<atomicDB>$HOME/apolloDB/</atomicDB>`. The trailing slash must be included__.
+
+##Example
+`IonPopSolver/test` contains three example temperature and density profiles `IonPopSolver/test/Tt_nt_{1,2,3}.txt`. We will do a test with the input file `IonPopSolver/test/Tt_nt_1.txt`.
+
+Change into `$HOME/IonPopSolver/`, clean the installation, and compile the code
+```Shell
+	$ cd $HOME/IonPopSolver
+	$ scons -c
+	scons: Reading SConscript files ...
+	Using Mac OS X compile options.
+	scons: done reading SConscript files.
+	scons: Cleaning targets ...
+	Removed Radiation_Model/source/OpticallyThick/OpticallyThickIon.o
+	Removed Radiation_Model/source/element.o
+	Removed Radiation_Model/source/ionfrac.o
+	Removed Radiation_Model/source/radiation.o
+	Removed rsp_toolkit/source/file.o
+	Removed rsp_toolkit/source/fitpoly.o
+	Removed rsp_toolkit/source/xmlreader.o
+	Removed rsp_toolkit/tinyxml2/tinyxml2.o
+	Removed source/main.o
+	Removed bin/IonPopSolver.run
+	scons: done cleaning targets.
+	$ scons
+	scons: Reading SConscript files ...
+	Using Mac OS X compile options.
+	scons: done reading SConscript files.
+	scons: Building targets ...
+	g++ -o Radiation_Model/source/OpticallyThick/OpticallyThickIon.o -c -g -O3 -fno-stack-protector -Wall -I/opt/local/include -I/usr/include/malloc Radiation_Model/source/OpticallyThick/OpticallyThickIon.cpp
+	g++ -o Radiation_Model/source/element.o -c -g -O3 -fno-stack-protector -Wall -I/opt/local/include -I/usr/include/malloc Radiation_Model/source/element.cpp
+	g++ -o Radiation_Model/source/ionfrac.o -c -g -O3 -fno-stack-protector -Wall -I/opt/local/include -I/usr/include/malloc Radiation_Model/source/ionfrac.cpp
+	g++ -o Radiation_Model/source/radiation.o -c -g -O3 -fno-stack-protector -Wall -I/opt/local/include -I/usr/include/malloc Radiation_Model/source/radiation.cpp
+	g++ -o rsp_toolkit/source/file.o -c -g -O3 -fno-stack-protector -Wall -I/opt/local/include -I/usr/include/malloc rsp_toolkit/source/file.cpp
+	g++ -o rsp_toolkit/source/fitpoly.o -c -g -O3 -fno-stack-protector -Wall -I/opt/local/include -I/usr/include/malloc rsp_toolkit/source/fitpoly.cpp
+	g++ -o rsp_toolkit/source/xmlreader.o -c -g -O3 -fno-stack-protector -Wall -I/opt/local/include -I/usr/include/malloc rsp_toolkit/source/xmlreader.cpp
+	g++ -o rsp_toolkit/tinyxml2/tinyxml2.o -c -g -O3 -fno-stack-protector -Wall -I/opt/local/include -I/usr/include/malloc rsp_toolkit/tinyxml2/tinyxml2.cpp
+	g++ -o source/main.o -c -g -O3 -fno-stack-protector -Wall -I/opt/local/include -I/usr/include/malloc source/main.cpp
+	g++ -o bin/IonPopSolver.run Radiation_Model/source/element.o Radiation_Model/source/ionfrac.o Radiation_Model/source/radiation.o Radiation_Model/source/OpticallyThick/OpticallyThickIon.o rsp_toolkit/source/file.o rsp_toolkit/source/fitpoly.o rsp_toolkit/source/xmlreader.o rsp_toolkit/tinyxml2/tinyxml2.o source/main.o -L/opt/local/lib -lboost_program_options-mt
+	scons: done building targets.
+```
+
+Next, run the code, calculating the population fractions of Fe for ions IX through XXVI.
+```Shell
+	$ bin/IonPopSolver.run -Z 26 -f 9 -t 26 -I test/Tt_nt_1.txt -O test/test1.out -r test/radiation.example.cfg.xml
+	0%|         |100%
+	  |||||||||||
+
+	The process took 17.000000 seconds to run.
+```
+
+Now, using the simple python script `test/quick_plot.py`, we can plot the resulting temperature, density, effective temperature, and population fractions as a function of time and save it to the file `test/test1.png`.
+```Shell
+    $ python test/quick_plot.py -Z 26 -f 9 -t 26 -O test/test1.out --print_fig_filename test/test1
+```
+
+![Temperature, density, and Fe ion population fractions as a function of time](test/test1.png)
