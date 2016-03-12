@@ -1,5 +1,6 @@
 #IonPopSolver
 IonPopSolver solves the time-dependent ionization equations for a particular element given tabulated values of the plasma electron temperature and density. These tabulated values can be the solutions of an analytical model, the output from a numerical simuation, or a set of observational measurements. A full description of the numerical model and relevant physics can be found in [Bradshaw (2009)](http://adsabs.harvard.edu/abs/2009A%26A...502..409B).
+
 ##Dependencies
 IonPopSolver has been successfully tested and run on Mac OS X, Linux (Ubuntu 14.04), and Windows. It is recommended that Windows users use the Unix environment provided by <a href="https://www.cygwin.com/">Cygwin</a>. This will make installing the relevant dependencies and compiling the code much more simple. The following are required dependencies for compiling and running IonPopSolver:
  
@@ -37,8 +38,8 @@ IonPopSolver has been successfully tested and run on Mac OS X, Linux (Ubuntu 14.
   </tr>
 </table>
  
-### Installing Boost on Windows
-While the Boost libraries can be downloaded using the Cygwin package installer, building and linking has proved difficult. The best and simplest way for Windows users to acquire the Boost libraries is just to download the source code and build the one needed library, <tt>program_options</tt>.
+### Installing Boost from Source
+While Mac and Linux users can easily obtain the the Boost libraries from their respective package managers, Windows has no such equivalent (While Boost can be downloaded using the Cygwin package installer, building and linking has proved difficult). The best and simplest way for Windows users to acquire the Boost libraries is just to download the source code and build the one needed library, <tt>program_options</tt>.
 
 + First, download the Boost libraries tarball from [source](http://www.boost.org/users/history/version_1_55_0.html). Download the `.tar.gz` (we'll assume this is called `boost_1_55_0.tar.gz`) file for the Unix platform into a convenient directory `$DOWNLOADS`. 
 
@@ -59,6 +60,8 @@ While the Boost libraries can be downloaded using the Cygwin package installer, 
     $ ./b2 link=static install
 ``` 
 
+A more general summary of these instructions can be found [here](http://www.boost.org/doc/libs/1_55_0/more/getting_started/unix-variants.html).
+
 ##Downloading and Compiling
 Change into the directory where you want to build the model (e.g. `$HOME`) and download IonPopSolver through the `git` command line utility by running
 ```Shell
@@ -76,7 +79,7 @@ This will use the `$HOME/IonPopSolver/SConstruct` file to build an executable an
 To clean up the object files and the executable, run `scons -c`. You can find more advanced SCons options by running `scons --help`.
 
 ##Getting the atomic data
-The `Radiation_Model/` module used for calculating the ionization equation terms reads in tabulated values for the elemental balances, ionization and recombination rates, and temperature ranges for all ions for hydrogen (1) through zinc (28). A database of this atomic information has been compiled into a single repository, `apolloDB`. To download the atomic data,
+The `Radiation_Model/` module used for calculating the ionization equation terms reads in tabulated values for the elemental balances, ionization and recombination rates, and temperature ranges for all ions for hydrogen (1) through zinc (28). A database of this atomic information has been compiled into a single repository, `apolloDB`. To download the atomic data to `$HOME/apolloDB`,
 ```Shell
     $ cd $HOME
     $ git clone https://github.com/rice-solar-physics/apolloDB.git
