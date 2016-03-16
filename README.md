@@ -79,7 +79,7 @@ This will use the `$HOME/IonPopSolver/SConstruct` file to build an executable an
 To clean up the object files and the executable, run `scons -c`. You can find more advanced SCons options by running `scons --help`.
 
 ##Getting the atomic data
-The `Radiation_Model/` module used for calculating the ionization equation terms reads in tabulated values for the elemental balances, ionization and recombination rates, and temperature ranges for all ions for hydrogen (1) through zinc (28). A database of this atomic information has been compiled into a single repository, `apolloDB`. To download the atomic data to `$HOME/apolloDB`,
+The `Radiation_Model/` module used for calculating the ionization equation terms reads in tabulated values for the elemental balances, ionization and recombination rates, and temperature ranges for all ions for hydrogen (1) through zinc (28). A database of this atomic information has been compiled into a single repository, [`apolloDB`](https://github.com/rice-solar-physics/apolloDB). To download the atomic data to `$HOME/apolloDB`,
 ```Shell
     $ cd $HOME
     $ git clone https://github.com/rice-solar-physics/apolloDB.git
@@ -89,7 +89,7 @@ The `Radiation_Model/` module used for calculating the ionization equation terms
 IonPopSolver has five required arguments and one optional argument.
 
 | Parameter | Description |
-|:---------:|:-----------:|
+|:---------:|:------------|
 | `-Z,--element` | Atomic number of element for which the ionization fractions are calculated. |
 | `-f,--spec_from` | Spectroscopic number of starting ion |
 | `-t,--spec_to` | Spectroscopic number of ending ion |
