@@ -1,6 +1,24 @@
 #IonPopSolver
 IonPopSolver solves the time-dependent ionization equations for a particular element given tabulated values of the plasma electron temperature and density. These tabulated values can be the solutions of an analytical model, the output from a numerical simuation, or a set of observational measurements. A full description of the numerical model and relevant physics can be found in [Bradshaw (2009)](http://adsabs.harvard.edu/abs/2009A%26A...502..409B).
 
+##Citation
+If you use this code in a published work (e.g. paper, poster, presentation, etc.), please include the following citation for [Bradshaw (2009)](http://adsabs.harvard.edu/abs/2009A%26A...502..409B):
+```
+@ARTICLE{2009A&A...502..409B,
+   author = {{Bradshaw}, S.~J.},
+    title = "{A numerical tool for the calculation of non-equilibrium ionisation states in the solar corona and other astrophysical plasma environments}",
+  journal = {\aap},
+ keywords = {Sun: corona, Sun: UV radiation, atomic processes, methods: numerical},
+     year = 2009,
+    month = jul,
+   volume = 502,
+    pages = {409-418},
+      doi = {10.1051/0004-6361/200810735},
+   adsurl = {http://adsabs.harvard.edu/abs/2009A%26A...502..409B},
+  adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+```
+
 ##Dependencies
 IonPopSolver has been successfully tested and run on Mac OS X, Linux (Ubuntu 14.04), and Windows. It is recommended that Windows users use the Unix environment provided by <a href="https://www.cygwin.com/">Cygwin</a>. This will make installing the relevant dependencies and compiling the code much more simple. The following are required dependencies for compiling and running IonPopSolver:
  
