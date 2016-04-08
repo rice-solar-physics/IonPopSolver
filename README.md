@@ -186,7 +186,7 @@ IonPopSolver outputs a results file to the path specified by `-O` or `--output_f
  </tr>
 </table>
 
-A sample radiation configuration file is provided in `test/radiation.example.cfg.xml`. This is an XML file that sets all of the options that go into the radiation model. Configure all of the elements that you want to include in the ion population fraction here. Additionally, setting the `cutoff_ion_fraction` field to something much higher (e.g. 1e-6 versus the default 1e-300) will speed up the calculation as all ion population fractions below this cutoff are ignored.  
+A sample radiation configuration file is provided in `test/radiation.example.cfg.xml`. This is an XML file that sets all of the options that go into the radiation model. Configure all of the elements that you want to include in the ion population fraction here. Additionally, setting the `cutoff_ion_fraction` field to something much higher (e.g. 1e-6 versus the default 1e-300) will speed up the calculation as all ion population fractions below this cutoff are ignored. For more information about configuring the radiation model, see [the Radiation Model docs](http://rice-solar-physics.github.io/Radiation_Model/). 
 
 __Note: The `atomicDB` field in the radiation configuration file must point at the directory where you installed the `apolloDB` repository. Using the example above, we would set `<atomicDB>$HOME/apolloDB/</atomicDB>`. The trailing slash must be included__.
 
