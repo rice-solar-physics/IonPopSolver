@@ -1,7 +1,7 @@
-#IonPopSolver
+# IonPopSolver
 IonPopSolver solves the time-dependent ionization equations for a particular element given tabulated values of the plasma electron temperature and density. These tabulated values can be the solutions of an analytical model, the output from a numerical simuation, or a set of observational measurements. A full description of the numerical model and relevant physics can be found in [Bradshaw (2009)](http://adsabs.harvard.edu/abs/2009A%26A...502..409B).
 
-##Citation
+## Citation
 If you use this code in a published work (e.g. paper, poster, presentation, etc.), please include the following citation for [Bradshaw (2009)](http://adsabs.harvard.edu/abs/2009A%26A...502..409B):
 ```
 @ARTICLE{2009A&A...502..409B,
@@ -19,7 +19,7 @@ If you use this code in a published work (e.g. paper, poster, presentation, etc.
 }
 ```
 
-##Dependencies
+## Dependencies
 IonPopSolver has been successfully tested and run on Mac OS X, Linux (Ubuntu 14.04), and Windows. It is recommended that Windows users use the Unix environment provided by <a href="https://www.cygwin.com/">Cygwin</a>. This will make installing the relevant dependencies and compiling the code much more simple. The following are required dependencies for compiling and running IonPopSolver:
  
 <table>
@@ -80,7 +80,7 @@ While Mac and Linux users can easily obtain the the Boost libraries from their r
 
 A more general summary of these instructions can be found [here](http://www.boost.org/doc/libs/1_55_0/more/getting_started/unix-variants.html).
 
-##Downloading and Compiling
+## Downloading and Compiling
 Change into the directory where you want to build the model (e.g. `$HOME`) and download IonPopSolver through the `git` command line utility by running
 ```Shell
     $ cd $HOME
@@ -96,14 +96,14 @@ This will use the `$HOME/IonPopSolver/SConstruct` file to build an executable an
 
 To clean up the object files and the executable, run `scons -c`. You can find more advanced SCons options by running `scons --help`.
 
-##Getting the atomic data
+## Getting the atomic data
 The `Radiation_Model/` module used for calculating the ionization equation terms reads in tabulated values for the elemental balances, ionization and recombination rates, and temperature ranges for all ions for hydrogen (1) through nickel (28). A database of this atomic information has been compiled into a single repository, [`apolloDB`](https://github.com/rice-solar-physics/apolloDB). To download the atomic data to `$HOME/apolloDB`,
 ```Shell
     $ cd $HOME
     $ git clone https://github.com/rice-solar-physics/apolloDB.git
 ```
 
-##Input and Output
+## Input and Output
 IonPopSolver has five required arguments and one optional argument.
 
 | Parameter | Description |
@@ -190,7 +190,7 @@ A sample radiation configuration file is provided in `test/radiation.example.cfg
 
 __Note: The `atomicDB` field in the radiation configuration file must point at the directory where you installed the `apolloDB` repository. Using the example above, we would set `<atomicDB>$HOME/apolloDB/</atomicDB>`. The trailing slash must be included__.
 
-##Example
+## Example
 `IonPopSolver/test` contains three example temperature and density profiles `IonPopSolver/test/Tt_nt_{1,2,3}.txt`. We will do a test with the input file `IonPopSolver/test/Tt_nt_1.txt`.
 
 Change into `$HOME/IonPopSolver/`, clean the installation, and compile the code
